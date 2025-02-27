@@ -6,6 +6,7 @@ import uuid
 
 from predpeso.models.models import FarmModel, UserModel
 from predpeso.schemas.farm_schemas import FarmRequest, FarmResponse, FarmUpdate
+
 class FarmService:
 
     def __init__(self, db_session: Session) -> None:
