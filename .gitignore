@@ -1,0 +1,41 @@
+# Ignora o ambiente virtual
+.venv/
+
+# Ignora arquivos de cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignora arquivos de configuração do VS Code
+.vscode/
+
+# Ignora arquivos de banco de dados SQLite
+*.sqlite3
+
+# Ignora arquivos de log
+*.log
+
+# Ignora diretórios de distribuição e build
+dist/
+build/
+*.egg-info/
+
+# Ignora arquivos de ambiente
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Ignora arquivos de configuração do Pytest
+.pytest_cache/
+
+# Ignora arquivos de cobertura de testes
+.coverage
+htmlcov/
+
+# Ignora arquivos de configuração do Jupyter Notebook
+.ipynb_checkpoints/
+
+# Ignora arquivos de configuração do mypy
+.mypy_cache/
