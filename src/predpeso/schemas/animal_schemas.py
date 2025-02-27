@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from datetime import datetime
 
-class animalRequest(BaseModel):
+class AnimalRequest(BaseModel):
     name: str | None = None
     breed: str | None = None
     age: int | None = None
@@ -12,7 +12,7 @@ class animalRequest(BaseModel):
     updated_at: datetime | None = None
     farm_id: str 
 
-class animalResponse(BaseModel):
+class AnimalResponse(BaseModel):
     id: str 
     name: str | None = None
     breed: str | None = None
@@ -24,7 +24,7 @@ class animalResponse(BaseModel):
     updated_at: datetime | None = None
     farm_id: str 
 
-class animalUpdate(BaseModel):
+class AnimalUpdate(BaseModel):
     id: str 
     name: str | None = None
     breed: str | None = None
