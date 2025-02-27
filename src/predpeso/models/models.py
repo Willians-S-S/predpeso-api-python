@@ -30,3 +30,21 @@ class FarmModel(Base):
     user_id: Mapped[str] = mapped_column(ForeignKey("user.id"), nullable=False)
     user: Mapped["UserModel"] = relationship("UserModel", back_populates="farms")
 
+    animals: Mapped[list["AnimalModel"]] = relationship("AnimalModel", back_populates="farm")
+
+class AnimalModel(Base):
+    __tablename__ = 'animal'
+
+    id: Mapped[str] = mapped_column(primary_key=True, unique= True)
+    name: Mapped[str] = mapped_column(nullable=False)
+    breed: Mapped[str] = mapped_column(nullable=True)
+    age: Mapped[int] = mapped_column(nullable=True)
+    gender: Mapped[str] = mapped_column(nullable=False)
+    healthCondition: Mapped[str] = mapped_column(nullable=True)
+    currentWeight: Mapped[str] = mapped_column(nullable=False)
+    createdAt: Mapped[datetime] = mapped_column(nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(nullable=False)
+
+    farm_id: Mapped[str] = mapped_column(ForeignKey("farm.id"), nullable=False)
+    farm: Mapped["FarmModel"] = relationship("FarmModel", back_populates="animals")
+
