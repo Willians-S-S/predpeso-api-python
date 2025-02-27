@@ -28,5 +28,5 @@ class FarmModel(Base):
     updated_at: Mapped[datetime] = mapped_column(nullable=False)
 
     user_id: Mapped[str] = mapped_column(ForeignKey("user.id"), nullable=False)
-    user: Mapped["UserModel"] = relationship("UserModel", back_populates="farm")
+    user: Mapped["UserModel"] = relationship("UserModel", back_populates="farms")
 
