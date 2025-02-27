@@ -1,5 +1,8 @@
 from pydantic import BaseModel
 from datetime import datetime
+from predpeso.schemas.farm_schemas import FarmResponse
+
+
 
 
 class UserRequest(BaseModel):
@@ -20,6 +23,9 @@ class UserResponse(BaseModel):
     profile_picture: str | None = None
     created_at: datetime | None = None
     updated_at: datetime | None = None
+
+    farms: list["FarmResponse"] | None = None
+
 
 class UserUpdate(BaseModel):
     name: str | None = None
