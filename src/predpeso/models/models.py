@@ -40,9 +40,9 @@ class AnimalModel(Base):
     breed: Mapped[str] = mapped_column(nullable=True)
     age: Mapped[int] = mapped_column(nullable=True)
     gender: Mapped[str] = mapped_column(nullable=False)
-    healthCondition: Mapped[str] = mapped_column(nullable=True)
-    currentWeight: Mapped[str] = mapped_column(nullable=False)
-    createdAt: Mapped[datetime] = mapped_column(nullable=False)
+    health_condition: Mapped[str] = mapped_column(nullable=True)
+    current_weight: Mapped[str] = mapped_column(nullable=False)
+    created_at: Mapped[datetime] = mapped_column(nullable=False)
     updated_at: Mapped[datetime] = mapped_column(nullable=False)
 
     farm_id: Mapped[str] = mapped_column(ForeignKey("farm.id"), nullable=False)

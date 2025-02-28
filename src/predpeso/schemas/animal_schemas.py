@@ -6,10 +6,8 @@ class AnimalRequest(BaseModel):
     breed: str | None = None
     age: int | None = None
     gender: str | None = None
-    healthCondition: str | None = None
-    currentWeight: str | None = None
-    createdAt: datetime | None = None
-    updated_at: datetime | None = None
+    health_condition: str | None = None
+    current_weight: str | None = None
     farm_id: str 
 
 class AnimalResponse(BaseModel):
@@ -18,9 +16,9 @@ class AnimalResponse(BaseModel):
     breed: str | None = None
     age: int | None = None
     gender: str | None = None
-    healthCondition: str | None = None
-    currentWeight: str | None = None
-    createdAt: datetime | None = None
+    health_condition: str | None = None
+    current_weight: str | None = None
+    created_at: datetime | None = None
     updated_at: datetime | None = None
     farm_id: str 
 
@@ -30,8 +28,8 @@ class AnimalUpdate(BaseModel):
     breed: str | None = None
     age: int | None = None
     gender: str | None = None
-    healthCondition: str | None = None
-    currentWeight: str | None = None
-    createdAt: datetime | None = None
+    health_condition: str | None = None
+    current_weight: str | None = None
+    created_at: datetime | None = None
     updated_at: datetime | None = None
     farm_id: str | None = None
