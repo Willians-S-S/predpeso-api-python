@@ -3,6 +3,7 @@ from fastapi import HTTPException
 from fastapi import status
 from sqlalchemy.orm import Session
 import uuid
+from random import randint
 
 from predpeso.models.models import AnimalModel, FarmModel
 from predpeso.schemas.animal_schemas import AnimalRequest, AnimalResponse, AnimalUpdate
@@ -23,8 +24,9 @@ class AnimalService:
                                 detail="Fazenda não encontrado.")
         
         date_created_and_updated = datetime.now()
+        current_weight = randint(1, 60)
         
-        animal_on_db = AnimalModel(**animal.model_dump(), id=str(uuid.uuid4()), created_at=date_created_and_updated, updated_at=date_created_and_updated)
+        animal_on_db = AnimalModel(**animal.model_dump(), id=str(uuid.uuid4()), created_at=date_created_and_updated, updated_at=date_created_and_updated, current_weight=current_weight)
 
         self.db_session.add(animal_on_db)
         self.db_session.commit()
