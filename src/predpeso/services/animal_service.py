@@ -4,7 +4,7 @@ from fastapi import status
 from sqlalchemy.orm import Session
 import uuid
 
-from predpeso.models.models import AnimalModel, UserModel
+from predpeso.models.models import AnimalModel, FarmModel
 from predpeso.schemas.animal_schemas import AnimalRequest, AnimalResponse, AnimalUpdate
 
 ENTENY = "Animal"
@@ -16,7 +16,7 @@ class AnimalService:
     
     def add(self, animal: AnimalRequest) -> AnimalResponse:
 
-        farm_on_db = self.db_session.query(UserModel).filter_by(id = animal.farm_id).first()
+        farm_on_db = self.db_session.query(FarmModel).filter_by(id = animal.farm_id).first()
 
         if not farm_on_db:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
