@@ -41,7 +41,7 @@ class AnimalModel(Base):
     age: Mapped[int] = mapped_column(nullable=True)
     gender: Mapped[str] = mapped_column(nullable=False)
     health_condition: Mapped[str] = mapped_column(nullable=True)
-    current_weight: Mapped[str] = mapped_column(nullable=False)
+    current_weight: Mapped[int] = mapped_column(nullable=False)
     created_at: Mapped[datetime] = mapped_column(nullable=False)
     updated_at: Mapped[datetime] = mapped_column(nullable=False)
 
