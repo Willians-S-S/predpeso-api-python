@@ -7,7 +7,6 @@ class AnimalRequest(BaseModel):
     age: int | None = None
     gender: str | None = None
     health_condition: str | None = None
-    # current_weight: str | None = None
     farm_id: str 
 
 class AnimalResponse(BaseModel):
