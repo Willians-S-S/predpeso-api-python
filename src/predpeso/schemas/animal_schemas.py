@@ -16,7 +16,7 @@ class AnimalResponse(BaseModel):
     age: int | None = None
     gender: str | None = None
     health_condition: str | None = None
-    current_weight: int | None = None
+    current_weight: float | None = None
     created_at: datetime | None = None
     updated_at: datetime | None = None
     farm_id: str 
@@ -28,7 +28,7 @@ class AnimalUpdate(BaseModel):
     age: int | None = None
     gender: str | None = None
     health_condition: str | None = None
-    current_weight: int | None = None
+    current_weight: float | None = None
     created_at: datetime | None = None
     updated_at: datetime | None = None
     farm_id: str | None = None
