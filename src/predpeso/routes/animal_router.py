@@ -21,6 +21,10 @@ def get_animal_id(id_animal: str, db: Session = Depends(get_db)):
 def get_all(db: Session = Depends(get_db)):
     return AnimalService(db_session=db).get_all()
 
+@animal_router.put("/inference/{id_animal}", response_model=AnimalResponse)
+def upadate_animal(image_url: str, id_animal: str, db: Session = Depends(get_db)):
+    return AnimalService(db_session=db).inference(animal_id=id_animal, image_url=image_url)
+
 @animal_router.put("/{id_animal}", response_model=AnimalResponse)
 def upadate_animal(animal: AnimalUpdate, id_animal: str, db: Session = Depends(get_db) ):
     return AnimalService(db_session=db).update(animal=animal, animal_id=id_animal)
