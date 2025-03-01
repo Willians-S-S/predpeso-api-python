@@ -5,6 +5,7 @@ from predpeso.db.base import Base
 
 class UserModel(Base):
     __tablename__ = 'user'
+
     id: Mapped[str] = mapped_column(primary_key=True, unique= True)
     name: Mapped[str] = mapped_column(nullable=False)
     username: Mapped[str] = mapped_column(nullable=False, unique=True)
@@ -41,10 +42,22 @@ class AnimalModel(Base):
     age: Mapped[int] = mapped_column(nullable=True)
     gender: Mapped[str] = mapped_column(nullable=False)
     health_condition: Mapped[str] = mapped_column(nullable=True)
-    current_weight: Mapped[int] = mapped_column(nullable=False)
+    current_weight: Mapped[float] = mapped_column(nullable=False)
     created_at: Mapped[datetime] = mapped_column(nullable=False)
     updated_at: Mapped[datetime] = mapped_column(nullable=False)
 
     farm_id: Mapped[str] = mapped_column(ForeignKey("farm.id"), nullable=False)
     farm: Mapped["FarmModel"] = relationship("FarmModel", back_populates="animals")
 
+    historys: Mapped[list["History"]] = relationship("History", back_populates="animal")
+
+class History(Base):
+    __tablename__ = 'history'
+
+    id: Mapped[str] = mapped_column(primary_key=True, unique= True)
+    weight: Mapped[float] = mapped_column(nullable=False)
+    created_at: Mapped[datetime] = mapped_column(nullable=False)
+    imageUrl: Mapped[str] = mapped_column(nullable=True)
+
+    animal_id: Mapped[str] = mapped_column(ForeignKey("animal.id"), nullable=False)
+    animal: Mapped["AnimalModel"] = relationship("AnimalModel", back_populates="historys")
