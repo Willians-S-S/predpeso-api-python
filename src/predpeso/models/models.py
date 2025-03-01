@@ -41,6 +41,7 @@ class AnimalModel(Base):
     breed: Mapped[str] = mapped_column(nullable=True)
     age: Mapped[int] = mapped_column(nullable=True)
     gender: Mapped[str] = mapped_column(nullable=False)
+    image_url: Mapped[str] = mapped_column(nullable=True)
     health_condition: Mapped[str] = mapped_column(nullable=True)
     current_weight: Mapped[float] = mapped_column(nullable=False)
     created_at: Mapped[datetime] = mapped_column(nullable=False)
@@ -57,7 +58,7 @@ class History(Base):
     id: Mapped[str] = mapped_column(primary_key=True, unique= True)
     weight: Mapped[float] = mapped_column(nullable=False)
     created_at: Mapped[datetime] = mapped_column(nullable=False)
-    imageUrl: Mapped[str] = mapped_column(nullable=True)
+    image_url: Mapped[str] = mapped_column(nullable=False)
 
     animal_id: Mapped[str] = mapped_column(ForeignKey("animal.id"), nullable=False)
     animal: Mapped["AnimalModel"] = relationship("AnimalModel", back_populates="historys")
