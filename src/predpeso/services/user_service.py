@@ -1,6 +1,7 @@
 from datetime import datetime
 from fastapi import HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm 
+from http import HTTPStatus
 from sqlalchemy.orm import Session
 import uuid
 
@@ -58,24 +59,21 @@ class UserService:
 
         return users_on_db
     
-    def update(self, user: UserUpdate, user_id: str):
-        user_on_db = self.db_session.query(UserModel).filter_by(id = user_id).first()
+    def update(self, user: UserUpdate, user_id: str, current_user: UserModel) -> UserResponse:
 
-        if(not user_on_db):
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-                                detail="Usuário não encontrado.")
+        if(current_user.id != user_id):
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Não autorizado.")
 
-        
         for fild, value in user.model_dump().items():
             if value:
                 print(fild, value)
                 if fild == "password":
                     value = get_password_hash(value)
-                setattr(user_on_db, fild, value)
+                setattr(current_user, fild, value)
 
         self.db_session.commit()
         
-        return user_on_db
+        return current_user
 
     
     def delete(self, user_id: str) -> dict:
