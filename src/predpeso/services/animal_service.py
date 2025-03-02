@@ -4,7 +4,6 @@ from fastapi import status
 import math
 from sqlalchemy.orm import Session
 import uuid
-from random import random
 
 from predpeso.commons.inference import Inference
 from predpeso.commons.image import save_image
