@@ -7,7 +7,6 @@ class AnimalRequest(BaseModel):
     name: str | None = None
     breed: str | None = None
     age: int | None = None
-    image_url: str | None = None
     gender: str | None = None
     health_condition: str | None = None
     farm_id: str 
