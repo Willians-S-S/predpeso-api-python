@@ -1,10 +1,13 @@
 from datetime import datetime
-from fastapi import HTTPException
+from fastapi import HTTPException, Form, File, UploadFile
 from fastapi import status
+import math
 from sqlalchemy.orm import Session
 import uuid
 from random import random
 
+from predpeso.commons.inference import Inference
+from predpeso.commons.image import save_image
 from predpeso.models.models import AnimalModel, FarmModel, History
 from predpeso.schemas.animal_schemas import AnimalRequest, AnimalResponse, AnimalUpdate
 
@@ -15,7 +18,26 @@ class AnimalService:
     def __init__(self, db_session: Session) -> None:
         self.db_session = db_session
     
-    def add(self, animal: AnimalRequest) -> AnimalResponse:
+    def add(self, 
+            name: str = Form(...),
+            breed: str = Form(...),
+            age: int = Form(...),
+            gender: str = Form(...),
+            health_condition: str = Form(...),
+            farm_id: str = Form(...), 
+            image: UploadFile = File(...)
+            ) -> AnimalResponse:
+        
+        animal = {
+        "name": name,
+        "breed": breed,
+        "age": age,
+        "gender": gender,
+        "health_condition": health_condition,
+        "farm_id": farm_id
+        }
+
+        animal = AnimalRequest(**animal)
 
         farm_on_db = self.db_session.query(FarmModel).filter_by(id = animal.farm_id).first()
 
@@ -24,9 +46,13 @@ class AnimalService:
                                 detail="Fazenda não encontrado.")
         
         date_created_and_updated = datetime.now()
-        current_weight = random() * 100
 
-        animal_on_db = AnimalModel(**animal.model_dump(), id=str(uuid.uuid4()), created_at=date_created_and_updated, updated_at=date_created_and_updated, current_weight=current_weight)
+        image_url = save_image(image)
+
+        current_weight = round(Inference.predict_weight(image_url), 2)
+        
+
+        animal_on_db = AnimalModel(**animal.model_dump(), id=str(uuid.uuid4()), created_at=date_created_and_updated, updated_at=date_created_and_updated, current_weight=current_weight, image_url=image_url)
 
         self.db_session.add(animal_on_db)
 
@@ -52,7 +78,7 @@ class AnimalService:
 
         return animals_on_db
     
-    def inference(self, animal_id: str, image_url: str):
+    def inference(self, animal_id: str = Form(...), image_url: UploadFile = File(...)) -> AnimalResponse:
         animal_on_db = self.db_session.query(AnimalModel).filter_by(id = animal_id).first()
 
         if not animal_on_db:
@@ -60,7 +86,10 @@ class AnimalService:
                                 detail=f"{ENTENY} não encontrado.")
         
         date_updated = datetime.now()
-        current_weight = random() * 100
+
+        image_url = save_image(image_url)
+
+        current_weight = Inference.predict_weight(image_url)
 
         animal_on_db.updated_at = date_updated
         animal_on_db.current_weight = current_weight
