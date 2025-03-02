@@ -39,3 +39,7 @@ htmlcov/
 
 # Ignora arquivos de configuração do mypy
 .mypy_cache/
+
+# Ignora pastas
+h5
+upload_image
