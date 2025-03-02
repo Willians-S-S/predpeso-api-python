@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from predpeso.schemas.user_schemas import UserRequest, UserResponse, UserUpdate
+from predpeso.schemas.token_schemas import Token
 from predpeso.services.user_service import UserService
 from predpeso.db.connection import get_db
 
@@ -28,3 +30,7 @@ def upadate_user(user: UserUpdate, id_user: str, db: Session = Depends(get_db) )
 @user_router.delete("/{id_user}")
 def delete(id_user: str, db: Session = Depends(get_db)):
     return UserService(db_session=db).delete(user_id=id_user)
+
+@user_router.post("/token", response_model=Token)
+def longin_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    return UserService(db_session=db).login(form_data=form_data)
